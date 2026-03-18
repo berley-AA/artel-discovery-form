@@ -10,7 +10,7 @@ const steps = [
 ];
 
 const ACCENT = "#FF7B00";
-const BG = "#f0efeb";
+const BG = "transparent";
 
 function App() {
   const [step, setStep] = useState(0);
