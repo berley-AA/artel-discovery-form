@@ -21,7 +21,7 @@ function App() {
     industry: "", teamSize: "", revenue: "",
     channels: [], inquiryVolume: "", responseTime: "", repetitivePercent: "",
     goals: [], driver: "", triedBefore: "",
-    timeline: "", budget: "", decisionMaker: "",
+    timeline: "", budget: "", engagement: "", decisionMaker: "",
     extra: "",
   });
 
@@ -146,6 +146,7 @@ function App() {
           </div>
           <div style={{ padding: "8px 32px 32px" }}>
 
+            {/* STEP 1: ABOUT YOU */}
             {step === 0 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>Tell us about yourself</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>Basic info so we know who we're talking to</p>
@@ -167,6 +168,7 @@ function App() {
               </div>
             </div>)}
 
+            {/* STEP 2: YOUR BUSINESS */}
             {step === 1 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>Your business</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>Help us understand your company</p>
@@ -180,17 +182,18 @@ function App() {
                 <div><label style={lbl}>Monthly revenue</label>
                   <select style={{ ...inputBase, appearance: "none" }} value={form.revenue} onChange={(e) => set("revenue", e.target.value)} onFocus={onFocus} onBlur={onBlur}>
                     <option value="">Select range</option>
-                    <option value="under-10k">Under $10K</option>
-                    <option value="10k-50k">$10K – $50K</option>
+                    <option value="under-50k">Under $50K</option>
                     <option value="50k-150k">$50K – $150K</option>
                     <option value="150k-500k">$150K – $500K</option>
-                    <option value="500k+">$500K+</option>
+                    <option value="500k-1m">$500K – $1M</option>
+                    <option value="1m+">$1M+</option>
                     <option value="prefer-not">Prefer not to say</option>
                   </select>
                 </div>
               </div>
             </div>)}
 
+            {/* STEP 3: CURRENT SUPPORT */}
             {step === 2 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>Your customer support today</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>This helps us estimate your potential savings</p>
@@ -212,6 +215,7 @@ function App() {
               </div>
             </div>)}
 
+            {/* STEP 4: GOALS */}
             {step === 3 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>What you're looking for</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>Tell us what success looks like for you</p>
@@ -228,6 +232,7 @@ function App() {
               </div>
             </div>)}
 
+            {/* STEP 5: TIMELINE & BUDGET */}
             {step === 4 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>Timeline & budget</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>Helps us prepare the right proposal for you</p>
@@ -235,8 +240,11 @@ function App() {
                 <div><label style={lbl}>When do you want to get started? *</label>
                   {["As soon as possible", "Within 1 month", "Within 3 months", "Just exploring for now"].map((t) => (<div key={t} style={radioRow(form.timeline === t)} onClick={() => set("timeline", t)}><div style={dot(form.timeline === t)} />{t}</div>))}
                 </div>
-                <div><label style={lbl}>Budget range (CAD) *</label>
-                  {["Under $2,000", "$2,000 – $5,000", "$5,000 – $10,000", "$10,000+", "Not sure yet"].map((b) => (<div key={b} style={radioRow(form.budget === b)} onClick={() => set("budget", b)}><div style={dot(form.budget === b)} />{b}</div>))}
+                <div><label style={lbl}>Project budget range (CAD) *</label>
+                  {["$5,000 – $10,000", "$10,000 – $25,000", "$25,000 – $50,000", "$50,000+", "Not sure yet"].map((b) => (<div key={b} style={radioRow(form.budget === b)} onClick={() => set("budget", b)}><div style={dot(form.budget === b)} />{b}</div>))}
+                </div>
+                <div><label style={lbl}>How would you like to start?</label>
+                  {["Paid consultation first ($99–$128/hr)", "Ready for a full project engagement", "I'd like to discuss options on the call"].map((eng) => (<div key={eng} style={radioRow(form.engagement === eng)} onClick={() => set("engagement", eng)}><div style={dot(form.engagement === eng)} />{eng}</div>))}
                 </div>
                 <div><label style={lbl}>Are you the decision-maker?</label>
                   {["Yes, I make the final call", "I'm part of the decision team", "I'm researching for someone else"].map((d) => (<div key={d} style={radioRow(form.decisionMaker === d)} onClick={() => set("decisionMaker", d)}><div style={dot(form.decisionMaker === d)} />{d}</div>))}
@@ -244,6 +252,7 @@ function App() {
               </div>
             </div>)}
 
+            {/* STEP 6: FINAL */}
             {step === 5 && (<div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1a1a1a", marginBottom: "4px" }}>Almost done</h2>
               <p style={{ fontSize: "14px", color: "#888", marginBottom: "24px" }}>Anything else before we meet?</p>
@@ -261,6 +270,7 @@ function App() {
                     <div><strong style={{ color: "#999", fontWeight: 500 }}>Volume</strong><br />{form.inquiryVolume || "—"}</div>
                     <div><strong style={{ color: "#999", fontWeight: 500 }}>Budget</strong><br />{form.budget || "—"}</div>
                     <div><strong style={{ color: "#999", fontWeight: 500 }}>Timeline</strong><br />{form.timeline || "—"}</div>
+                    <div><strong style={{ color: "#999", fontWeight: 500 }}>Engagement</strong><br />{form.engagement || "—"}</div>
                     <div><strong style={{ color: "#999", fontWeight: 500 }}>Decision</strong><br />{form.decisionMaker || "—"}</div>
                   </div>
                   {form.goals.length > 0 && (<div style={{ marginTop: "10px", fontSize: "13px" }}><strong style={{ color: "#999", fontWeight: 500 }}>Goals:</strong> <span style={{ color: "#666" }}>{form.goals.join(", ")}</span></div>)}
